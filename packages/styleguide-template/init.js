@@ -9,5 +9,14 @@ process.on('unhandledRejection', err => {
 });
 
 const chalk = require('chalk');
+const path = require('path');
+const fs = require('fs-extra');
 
-console.log(chalk.green('// ToDo: copy template to project folder :D'));
+let data=fs.readFileSync('package.json');
+let packageJson = JSON.parse(data);
+let styleguideName = packageJson.name;
+let styleguidePath = './'+styleguideName;
+
+//to-do recursive copying
+fs.copySync('./create-styleguide/packages/styleguide-template/template/src/index.pug',styleguidePath +'/src/index.pug');
+console.log(chalk.green('copied template'))
