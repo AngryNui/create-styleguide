@@ -17,6 +17,13 @@ let packageJson = JSON.parse(data);
 let styleguideName = packageJson.name;
 let styleguidePath = './'+styleguideName;
 
-//to-do recursive copying
-fs.copySync('./create-styleguide/packages/styleguide-template/template/src/index.pug',styleguidePath +'/src/index.pug');
-console.log(chalk.green('copied template'))
+fs.copy('./create-styleguide/packages/styleguide-template/template/src',styleguidePath +'/src', function (err) {
+    if (err) {
+        console.error(chalk.red(err));
+    } else {
+        console.log("copied template!");
+    }
+});
+//todo move this to createStyleguide after fixing the arguments problem
+//move package.json into styleguide
+fs.renameSync('./package.json', styleguidePath+'/package.json');

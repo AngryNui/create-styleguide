@@ -22,7 +22,7 @@ if (!styleguideName){
     process.exit(1);
 }
 
-let appPath = "./"+styleguideName;
+let styleguidePath = "./"+styleguideName;
 let packageJson ={};
 packageJson.name=styleguideName;
 packageJson.version="0.0.1";
@@ -37,10 +37,14 @@ console.log(chalk.green('create ./' + styleguideName));
 
 // creating folders
 mkdirSync(path.resolve('./'+styleguideName));
-mkdirSync(path.resolve(appPath+"/app"));
-mkdirSync(path.resolve(appPath+"/src"));
-mkdirSync(path.resolve(appPath+"/node_modules"));
+mkdirSync(path.resolve(styleguidePath+"/app"));
+mkdirSync(path.resolve(styleguidePath+"/src"));
+mkdirSync(path.resolve(styleguidePath+"/node_modules"));
 
+//todo give styleguide-template arguments instead of calling it in the end of the js
 //dependencies which need the package.json
 const styleguideTemplate = require('../styleguide-template/init');
+
+
+
 
