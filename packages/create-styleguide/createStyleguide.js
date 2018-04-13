@@ -10,8 +10,9 @@ const mkdirSync = function (dirPath) {
     try {
         fs.mkdirSync(dirPath)
     } catch (err) {
-        console.log(chalk.red(dirPath +'already excists'));
+        console.log(chalk.red(dirPath +' already excists'));
         if (err.code !== 'EEXIST') throw err
+        process.exit(1);
     }
 }
 
@@ -41,7 +42,7 @@ mkdirSync(path.resolve(styleguidePath+"/src"));
 mkdirSync(path.resolve(styleguidePath+"/node_modules"));
 
 //writing initial package.json
-fs.writeFileSync(styleguidePath+'/package.json', JSON.stringify(packageJson));
+fs.writeFileSync(styleguidePath+'/package.json', JSON.stringify(packageJson, null, 2));
 
 //install template
 styleguideTemplate.install(styleguideName);
@@ -49,7 +50,7 @@ styleguideTemplate.install(styleguideName);
 
 //npm install
 console.log(chalk.green("npm install..."));
-exec('cd ./my-awesome-styleguide && npm install', (error, stdout, stderr) => {
+exec('cd '+styleguideName+' && npm install', (error, stdout, stderr) => {
     console.log(`stdout: ${stdout}`);
     console.log(`stderr: ${stderr}`);
     if (error) {
